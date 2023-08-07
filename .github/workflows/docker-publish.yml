@@ -22,15 +22,7 @@ env:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: docker setup
-        run: docker run ghcr.io/robert-denault/03_05-challenge:main
-        
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -101,3 +93,10 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+  test:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: docker setup
+        run: docker run ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
+        
