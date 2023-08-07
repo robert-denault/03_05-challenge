@@ -98,5 +98,5 @@ jobs:
     needs: [build]
     steps:
       - name: docker setup
-        run: docker run ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main | grep container && echo "TEST PASSED!"
+        run: docker run ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main | grep CONTAINER && echo "TEST PASSED!"
         
